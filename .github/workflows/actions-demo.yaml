@@ -14,5 +14,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           source: "README.md"
-          target: "/var/www/"
+          target: "/var/www/html/"
 
