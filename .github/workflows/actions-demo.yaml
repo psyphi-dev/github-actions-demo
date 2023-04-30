@@ -2,13 +2,17 @@ name: github-actions-demo
 run-name: ${{ github.actor }} is using github actions
 on: [push]
 jobs:
-  check-bats-version:
+  copy-files:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with: 
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          source: "README.md"
+          target: "/var/www/"
 
